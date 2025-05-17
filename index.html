@@ -6,7 +6,7 @@
   <style>
     body {
       font-family: sans-serif;
-      padding: 40px 20px;
+      padding: 60px 40px 40px 20px; /* 上60px 右40px 下40px 左20px */
       background-color: #f9f9f9;
     }
 
@@ -15,6 +15,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 30px;
+      margin-right: 40px;
     }
 
     .create-button {
@@ -36,16 +37,15 @@
 
     .character-list {
       display: grid;
-      grid-template-columns: 200px repeat(5, 1fr); /* 左空白200px + 横に5列 */
+      grid-template-columns: 200px repeat(5, 1fr); /* 左に空白 + キャラ5つ */
       gap: 20px;
       margin-top: 20px;
-      margin-left: 20px;
+      margin-right: 40px; /* 右に余白 */
     }
 
-    /* 空白セル */
     .empty-space {
       grid-column: 1 / 2;
-      grid-row: 1 / 1000; /* 高さをめっちゃ伸ばして左端ずっと空白 */
+      grid-row: 1 / 1000; /* 左空白ずっと伸ばす */
     }
 
     .character-card {
@@ -55,6 +55,11 @@
       padding: 15px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       text-align: center;
+      aspect-ratio: 3 / 4; /* 縦長比率を指定 */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     .character-image {
@@ -80,7 +85,7 @@
 <body>
 
   <div class="top-bar">
-    <button class="create-button">＋キャラクター作成</button>
+    <button class="create-button">＋キャラ作成</button>
 
     <select class="filter-select">
       <option>全カテゴリー</option>
@@ -90,7 +95,7 @@
   </div>
 
   <div class="character-list">
-    <div class="empty-space"></div> <!-- 左端空白ずっと伸ばす -->
+    <div class="empty-space"></div>
 
     <!-- キャラカード -->
     <div class="character-card">
@@ -128,8 +133,6 @@
       <div class="character-name">キャラ6</div>
       <div class="character-info">探索者 / 追加キャラ</div>
     </div>
-
-    <!-- どんどん増やせるンゴ -->
   </div>
 
 </body>
