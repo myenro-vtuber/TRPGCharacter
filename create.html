@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>キャラクター作成</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 60px 70px 80px;
+      background-color: #f9f9f9;
+    }
+    label, input {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>キャラクター作成</h1>
+
+  <form id="createForm">
+    <label for="name">名前</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="reading">読み</label>
+    <input type="text" id="reading" name="reading" required />
+
+    <label for="imageUrl">画像URL</label>
+    <input type="text" id="imageUrl" name="imageUrl" placeholder="https://example.com/image.png" required />
+
+    <button type="submit">保存</button>
+  </form>
+
+  <script>
+    document.getElementById('createForm').addEventListener('submit', e => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const reading = document.getElementById('reading').value.trim();
+      const imageUrl = document.getElementById('imageUrl').value.trim();
+
+      if (!name || !reading || !imageUrl) {
+        alert('全部入力してや〜');
+        return;
+      }
+
+      // 既存のキャラをlocalStorageから取得
+      const characters = JSON.parse(localStorage.getItem('characters') || '[]');
+
+      // 新キャラ追加
+      characters.push({ name, reading, imageUrl });
+
+      // localStorageに保存
+      localStorage.setItem('characters', JSON.stringify(characters));
+
+      // トップ画面(index.html)に戻る
+      location.href = 'index.html';
+    });
+  </script>
+
+</body>
+</html>
