@@ -36,14 +36,16 @@
 
     .character-list {
       display: grid;
-      grid-template-columns: 200px repeat(4, 1fr); /* 左に空白200px、右に4列 */
+      grid-template-columns: 200px repeat(5, 1fr); /* 左空白200px + 横に5列 */
       gap: 20px;
       margin-top: 20px;
       margin-left: 20px;
     }
 
-    .character-list > .empty-space {
-      /* 何も表示しない左空白スペース */
+    /* 空白セル */
+    .empty-space {
+      grid-column: 1 / 2;
+      grid-row: 1 / 1000; /* 高さをめっちゃ伸ばして左端ずっと空白 */
     }
 
     .character-card {
@@ -53,7 +55,6 @@
       padding: 15px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
       text-align: center;
-      /* 自動で4列に並ぶ */
     }
 
     .character-image {
@@ -89,9 +90,9 @@
   </div>
 
   <div class="character-list">
-    <div class="empty-space"></div> <!-- 左の空白 -->
+    <div class="empty-space"></div> <!-- 左端空白ずっと伸ばす -->
 
-    <!-- キャラカードたち -->
+    <!-- キャラカード -->
     <div class="character-card">
       <img src="https://via.placeholder.com/100" alt="キャラ画像" class="character-image" />
       <div class="character-name">テスト神格</div>
@@ -104,7 +105,6 @@
       <div class="character-info">探索者 / ミェンロウ</div>
     </div>
 
-    <!-- ここにもっとキャラカード増やしたら縦に5人くらい並ぶンゴ -->
     <div class="character-card">
       <img src="https://via.placeholder.com/100" alt="キャラ画像" class="character-image" />
       <div class="character-name">キャラ3</div>
@@ -122,6 +122,14 @@
       <div class="character-name">キャラ5</div>
       <div class="character-info">神格 / サンプル</div>
     </div>
+
+    <div class="character-card">
+      <img src="https://via.placeholder.com/100" alt="キャラ画像" class="character-image" />
+      <div class="character-name">キャラ6</div>
+      <div class="character-info">探索者 / 追加キャラ</div>
+    </div>
+
+    <!-- どんどん増やせるンゴ -->
   </div>
 
 </body>
