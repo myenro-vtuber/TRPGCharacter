@@ -3,39 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <title>キャラ管理アプリ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 20px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .char-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .char-card {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      background: #f9f9f9;
+      text-align: center;
+    }
+
+    .char-card h3 {
+      margin: 0 0 5px;
+    }
+
+    .char-card small {
+      color: #666;
+    }
+  </style>
 </head>
 <body>
-  <h1>キャラ作成</h1>
-  <input type="text" id="name" placeholder="キャラ名"><br>
-  <input type="number" id="power" placeholder="ちから"><br>
-  <button onclick="saveCharacter()">保存</button>
 
-  <h2>キャラ一覧</h2>
-  <ul id="list"></ul>
+  <div class="top-bar">
+    <button onclick="goToCreate()">＋ キャラ作成</button>
+
+    <select id="categoryFilter" onchange="filterByCategory()">
+      <option value="all">すべてのカテゴリ</option>
+      <option value="神格">神格</option>
+      <option value="探索者">探索者</option>
+      <!-- あとで追加可 -->
+    </select>
+  </div>
+
+  <div class="char-grid" id="charGrid">
+    <!-- キャラカードがここに並ぶ -->
+  </div>
 
   <script>
-    function saveCharacter() {
-      const name = document.getElementById("name").value;
-      const power = document.getElementById("power").value;
-      const chara = { name, power };
-      const data = JSON.parse(localStorage.getItem("characters") || "[]");
-      data.push(chara);
-      localStorage.setItem("characters", JSON.stringify(data));
-      renderList();
+    const characters = [
+      { name: "ルドゥラゾス", category: "神格", age: "？歳" },
+      { name: "ミナト・アサヒ", category: "探索者", age: "28歳" },
+      { name: "クトゥルフくん", category: "神格", age: "古代" },
+      // 必要に応じて追加
+    ];
+
+    function renderCharacters(filter = "all") {
+      const grid = document.getElementById("charGrid");
+      grid.innerHTML = "";
+
+      characters
+        .filter(c => filter === "all" || c.category === filter)
+        .forEach(c => {
+          const div = document.createElement("div");
+          div.className = "char-card";
+          div.innerHTML = `<h3>${c.name}</h3><small>${c.category}・${c.age}</small>`;
+          grid.appendChild(div);
+        });
     }
 
-    function renderList() {
-      const data = JSON.parse(localStorage.getItem("characters") || "[]");
-      const list = document.getElementById("list");
-      list.innerHTML = "";
-      data.forEach(c => {
-        const li = document.createElement("li");
-        li.textContent = `${c.name}（ちから: ${c.power}）`;
-        list.appendChild(li);
-      });
+    function filterByCategory() {
+      const val = document.getElementById("categoryFilter").value;
+      renderCharacters(val);
     }
 
-    renderList();
+    function goToCreate() {
+      // ページ遷移（後でcreate.htmlとか作ったらそっちに飛ばす）
+      alert("キャラ作成画面に行くで（仮）");
+    }
+
+    // 初期表示
+    renderCharacters();
   </script>
+
 </body>
 </html>
