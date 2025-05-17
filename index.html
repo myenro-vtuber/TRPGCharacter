@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>キャラ管理アプリ</title>
+</head>
+<body>
+  <h1>キャラ作成</h1>
+  <input type="text" id="name" placeholder="キャラ名"><br>
+  <input type="number" id="power" placeholder="ちから"><br>
+  <button onclick="saveCharacter()">保存</button>
+
+  <h2>キャラ一覧</h2>
+  <ul id="list"></ul>
+
+  <script>
+    function saveCharacter() {
+      const name = document.getElementById("name").value;
+      const power = document.getElementById("power").value;
+      const chara = { name, power };
+      const data = JSON.parse(localStorage.getItem("characters") || "[]");
+      data.push(chara);
+      localStorage.setItem("characters", JSON.stringify(data));
+      renderList();
+    }
+
+    function renderList() {
+      const data = JSON.parse(localStorage.getItem("characters") || "[]");
+      const list = document.getElementById("list");
+      list.innerHTML = "";
+      data.forEach(c => {
+        const li = document.createElement("li");
+        li.textContent = `${c.name}（ちから: ${c.power}）`;
+        list.appendChild(li);
+      });
+    }
+
+    renderList();
+  </script>
+</body>
+</html>
